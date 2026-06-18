@@ -11,9 +11,9 @@ variable "project_name" {
 }
 
 
-# variable "backend_ami" {
-#   description = "Backend AMI name pattern"
-#   type        = string
+# variable "backend_ami" { 
+#    description = "Backend AMI name pattern"
+#    type        = string
 # }
 
 variable "instance_type" {

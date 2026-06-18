@@ -8,3 +8,6 @@ output "frontend_instance_id" {
 output "frontend_instanceid" {
   value = aws_instance.frontend.id
 }
+output "ami_id" {
+  value = var.ami
+}

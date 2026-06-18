@@ -10,10 +10,12 @@ variable "project_name" {
   default     = "three-tier"
 }
 
-# variable "frontend_ami" {
-#   description = "Frontend AMI name pattern"
-#   type        = string
-# }
+ variable "frontend_ami" {
+  description = "Frontend AMI name pattern"
+ type        = string
+ 
+ }
+ 
 
 
 

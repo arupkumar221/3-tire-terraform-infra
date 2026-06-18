@@ -9,3 +9,6 @@ output "backend_public_ip" {
 output "backend_instanceid" {
   value = aws_instance.backend.id
 }
+output "ami_id" {
+  value = var.ami
+}

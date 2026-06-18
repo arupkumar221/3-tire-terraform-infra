@@ -30,7 +30,7 @@ module "frontend-ec2" {
 source = "../../modules/frontend/ec2"
 aws_region = "us-east-1"
 ami = "ami-00ca32bbc84273381"
-instance_type = "t2.micro"
+instance_type = "t3.micro"
 key_name = "us-east-1"
 subnet_id = module.vpc.public_subnets[0]
 security_group_id = module.vpc.bastion_sg_id
@@ -44,7 +44,7 @@ module "backend-ec2" {
 source = "../../modules/backend/ec2"
 aws_region = "us-east-1"
 ami = "ami-00ca32bbc84273381"
-instance_type = "t2.micro"
+instance_type = "t3.micro"
 key_name = "us-east-1"
 subnet_id = module.vpc.public_subnets[0]
 security_group_id = module.vpc.bastion_sg_id
@@ -56,8 +56,9 @@ security_group_id = module.vpc.bastion_sg_id
 module "bastion" {
 source = "../../modules/bastion"
 aws_region = "us-east-1"
-ami = "ami-00ca32bbc84273381"
-instance_type = "t2.micro"
+ami = "ami-0521cb2d60cfbb1a6"
+
+instance_type = "t3.micro"
 key_name = "us-east-1"
 subnet_id = module.vpc.public_subnets[0]
 security_group_id = module.vpc.bastion_sg_id
@@ -125,7 +126,7 @@ source        = "../../modules/frontend/launch-template"
 #source = "../../modules/frontend/launch-template"
 aws_region   = "us-east-1"
 project_name   = "three-tier"
-#frontend_ami   = module.frontend_launchtemplate.ami.id
+frontend_ami   = module.frontend-ec2.ami_id
 instance_type  = "t3.micro"
 frontend_sg_id = module.vpc.frontend_server_sg_id
 key_name       = "us-east-1"
@@ -137,14 +138,18 @@ instanceid = module.frontend-ec2.frontend_instanceid
 # ─────────────────────────────
 module "backend_launchtemplate" {
 
-source        = "../../modules/backend/launch-template"
-#source = "../../modules/backend/launch-template"
+source = "../../modules/backend/launch-template"
+
 aws_region   = "us-east-1"
-project_name   = "three-tier"
-#backend_ami    = module.backend_launchtemplate.ami.id
-instance_type  = "t3.micro"
-backend_sg_id  = module.vpc.backend_server_sg_id
-key_name       = "us-east-1"
+
+project_name = "three-tier"
+
+instance_type = "t3.micro"
+
+backend_sg_id = module.vpc.backend_server_sg_id
+
+key_name = "us-east-1"
+
 instanceid = module.backend-ec2.backend_instanceid
 
 }
